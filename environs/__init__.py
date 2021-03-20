@@ -175,8 +175,10 @@ def _preprocess_dict(
     }
 
 
-def _preprocess_json(value: str, **kwargs):
-    return pyjson.loads(value)
+def _preprocess_json(value: typing.Union[str, typing.Mapping, typing.List], **kwargs):
+    if isinstance(value, str):
+        return pyjson.loads(value)
+    return value
 
 
 _EnumT = typing.TypeVar("_EnumT", bound=Enum)
